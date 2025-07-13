@@ -1,1 +1,1 @@
-# ReViewPoint-SourceCheck
+# ReViewPoint-CitationValidatorPro
