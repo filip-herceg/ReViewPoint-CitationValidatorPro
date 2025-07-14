@@ -1,5 +1,7 @@
 # Environment variables
 .env
+.env.local
+.env.*.local
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -9,9 +11,19 @@ __pycache__/
 # C extensions
 *.so
 
-# Output files
-content_reviewed*.html
+# Output files and directories
+output/
+custom_output/
+results/
 *_reviewed.html
+content_reviewed*.html
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
 # Distribution / packaging
 .Python
