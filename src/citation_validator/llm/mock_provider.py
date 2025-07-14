@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 class MockProvider(LLMProvider):
     """Mock LLM provider that generates realistic responses for testing."""
-    
+
     def __init__(self):
         """Initialize mock provider."""
         self.response_templates = {
@@ -73,23 +73,23 @@ class MockProvider(LLMProvider):
                 "- Consider if additional supporting sources would strengthen "
                 "the argument\n"
                 "- Ensure citation directly supports all claims in this section"
-            )
+            ),
         }
-    
+
     def generate_response(self, prompt: str) -> str:
         """
         Generate mock response based on prompt analysis.
-        
+
         Args:
             prompt: Input prompt
-            
+
         Returns:
             Generated mock response
         """
         logger.info("Generating mock LLM response")
-        
+
         prompt_lower = prompt.lower()
-        
+
         # Determine response type based on prompt content
         if self._is_intro_ai_content(prompt_lower):
             return self.response_templates["intro_ai"]
@@ -99,38 +99,37 @@ class MockProvider(LLMProvider):
             return self.response_templates["privacy_technical"]
         else:
             return self.response_templates["default"]
-    
+
     def is_available(self) -> bool:
         """Mock provider is always available."""
         return True
-    
+
     def _is_intro_ai_content(self, prompt: str) -> bool:
         """Check if prompt is for intro AI content."""
         intro_keywords = ["einleitung", "introduction"]
-        ai_keywords = ["ai", "künstliche intelligenz", "chatbot", 
-                      "code completion"]
-        
+        ai_keywords = ["ai", "künstliche intelligenz", "chatbot", "code completion"]
+
         has_intro = any(keyword in prompt for keyword in intro_keywords)
         has_ai = any(keyword in prompt for keyword in ai_keywords)
-        
+
         return has_intro and has_ai
-    
+
     def _is_background_ai_content(self, prompt: str) -> bool:
         """Check if prompt is for background AI content."""
         background_keywords = ["hintergrund", "background"]
         ai_keywords = ["ai", "künstliche intelligenz", "chatbot"]
-        
+
         has_background = any(keyword in prompt for keyword in background_keywords)
         has_ai = any(keyword in prompt for keyword in ai_keywords)
-        
+
         return has_background and has_ai
-    
+
     def _is_privacy_technical_content(self, prompt: str) -> bool:
         """Check if prompt is for privacy/technical content."""
         privacy_keywords = ["datenschutz", "privacy", "sicherheit", "security"]
         technical_keywords = ["system", "modell", "implementierung", "plattform"]
-        
+
         has_privacy = any(keyword in prompt for keyword in privacy_keywords)
         has_technical = any(keyword in prompt for keyword in technical_keywords)
-        
+
         return has_privacy or has_technical

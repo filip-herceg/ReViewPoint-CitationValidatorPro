@@ -12,7 +12,7 @@ __author__ = "Citation Validator Team"
 try:
     from .core import CitationValidator
     from .config import Config
-    
+
     __all__ = [
         "CitationValidator",
         "Config",

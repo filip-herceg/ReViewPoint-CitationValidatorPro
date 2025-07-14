@@ -17,20 +17,19 @@ def main():
     """Demonstrate basic usage."""
     print("Citation Validator - Basic Example")
     print("=" * 40)
-    
+
     # Create validator with default settings
     validator = CitationValidator(
-        input_dir="input",
-        output_file="basic_example_output.html"
+        input_dir="input", output_file="basic_example_output.html"
     )
-    
+
     # Show validation summary
     summary = validator.get_validation_summary()
     print("Validation Summary:")
     for key, value in summary.items():
         print(f"  {key}: {value}")
     print()
-    
+
     # Run validation
     try:
         validator.run_pipeline()

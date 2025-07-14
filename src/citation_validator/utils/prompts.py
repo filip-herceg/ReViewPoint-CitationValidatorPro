@@ -8,23 +8,23 @@ from typing import Dict, Any, Optional
 
 class PromptTemplate:
     """Handles creation of LLM prompts for citation evaluation."""
-    
+
     @staticmethod
     def create_citation_evaluation_prompt(
         div_text: str,
         citation_metadata: Dict[str, Any],
         source_content: Optional[str] = None,
-        use_simplified_mode: bool = True
+        use_simplified_mode: bool = True,
     ) -> str:
         """
         Create the prompt for LLM evaluation.
-        
+
         Args:
             div_text: Text excerpt containing the citation
             citation_metadata: Citation metadata dictionary
             source_content: Optional simulated or actual source content
             use_simplified_mode: Whether using simplified mode
-            
+
         Returns:
             Formatted prompt string
         """
@@ -66,54 +66,62 @@ Format your response with clear sections and provide actionable feedback. Use em
 Keep your response professional, concise but thorough (aim for 150-300 words)."""
 
         return base_prompt + evaluation_instructions
-    
+
     @staticmethod
     def create_system_prompt() -> str:
         """
         Create system prompt for LLM.
-        
+
         Returns:
             System prompt string
         """
-        return ("You are an expert academic reviewer specializing in "
-                "citation analysis. Provide thorough, professional "
-                "evaluations of citation usage.")
-    
+        return (
+            "You are an expert academic reviewer specializing in "
+            "citation analysis. Provide thorough, professional "
+            "evaluations of citation usage."
+        )
+
     @staticmethod
     def create_missing_citation_response(footnote_id: int) -> str:
         """
         Create response for missing citation metadata.
-        
+
         Args:
             footnote_id: ID of the missing footnote
-            
+
         Returns:
             Error message string
         """
-        return (f"⚠️ **Missing Citation**: No citation metadata found for "
-                f"footnote {footnote_id}.")
-    
+        return (
+            f"⚠️ **Missing Citation**: No citation metadata found for "
+            f"footnote {footnote_id}."
+        )
+
     @staticmethod
     def create_empty_content_response(footnote_id: int) -> str:
         """
         Create response for empty div content.
-        
+
         Args:
             footnote_id: ID of the empty footnote
-            
+
         Returns:
             Warning message string
         """
-        return (f"⚠️ **Empty Content**: Div {footnote_id} has no text "
-                f"content to evaluate.")
-    
+        return (
+            f"⚠️ **Empty Content**: Div {footnote_id} has no text "
+            f"content to evaluate."
+        )
+
     @staticmethod
     def create_configuration_error_response() -> str:
         """
         Create response for configuration errors.
-        
+
         Returns:
             Error message string
         """
-        return ("❌ **Configuration Error**: LLM provider not properly "
-                "configured. Please check your settings.")
+        return (
+            "❌ **Configuration Error**: LLM provider not properly "
+            "configured. Please check your settings."
+        )
