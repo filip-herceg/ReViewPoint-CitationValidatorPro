@@ -79,7 +79,8 @@ class CitationDataProcessor:
                 return False
 
         # Log available optional fields
-        available_optional = [field for field in optional_fields if field in footnote]
+        available_optional = [
+            field for field in optional_fields if field in footnote]
         logger.debug(
             f"Footnote {footnote['number']} has optional fields: "
             f"{available_optional}"

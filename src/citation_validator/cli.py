@@ -47,8 +47,9 @@ Examples:
     parser.add_argument("--config", help="Configuration file path (.env file)")
 
     parser.add_argument(
-        "--mock-llm", action="store_true", help="Use mock LLM responses for testing"
-    )
+        "--mock-llm",
+        action="store_true",
+        help="Use mock LLM responses for testing")
 
     parser.add_argument(
         "--simplified-mode",
@@ -64,8 +65,9 @@ Examples:
     )
 
     parser.add_argument(
-        "--validate-config", action="store_true", help="Validate configuration and exit"
-    )
+        "--validate-config",
+        action="store_true",
+        help="Validate configuration and exit")
 
     parser.add_argument(
         "--version", action="version", version="Citation Validator 1.0.0"
@@ -167,9 +169,11 @@ def main():
 
     # Run validation
     try:
-        validator = CitationValidator(input_dir=args.input_dir, output_file=args.output)
+        validator = CitationValidator(
+            input_dir=args.input_dir,
+            output_file=args.output)
         validator.run_pipeline()
-        print(f"\n✅ Validation completed successfully!")
+        print("\n✅ Validation completed successfully!")
         print(f"📄 Output saved to: {args.output}")
 
     except Exception as e:

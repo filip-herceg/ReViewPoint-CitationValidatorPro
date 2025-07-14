@@ -3,7 +3,6 @@ Base LLM provider interface.
 """
 
 from abc import ABC, abstractmethod
-from typing import Dict, Any
 
 
 class LLMProvider(ABC):

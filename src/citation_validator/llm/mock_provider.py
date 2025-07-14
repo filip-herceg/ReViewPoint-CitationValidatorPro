@@ -3,7 +3,6 @@ Mock LLM provider for testing and development.
 """
 
 import logging
-from typing import Dict, Any
 
 from .base import LLMProvider
 
@@ -107,7 +106,11 @@ class MockProvider(LLMProvider):
     def _is_intro_ai_content(self, prompt: str) -> bool:
         """Check if prompt is for intro AI content."""
         intro_keywords = ["einleitung", "introduction"]
-        ai_keywords = ["ai", "künstliche intelligenz", "chatbot", "code completion"]
+        ai_keywords = [
+            "ai",
+            "künstliche intelligenz",
+            "chatbot",
+            "code completion"]
 
         has_intro = any(keyword in prompt for keyword in intro_keywords)
         has_ai = any(keyword in prompt for keyword in ai_keywords)
@@ -119,7 +122,8 @@ class MockProvider(LLMProvider):
         background_keywords = ["hintergrund", "background"]
         ai_keywords = ["ai", "künstliche intelligenz", "chatbot"]
 
-        has_background = any(keyword in prompt for keyword in background_keywords)
+        has_background = any(
+            keyword in prompt for keyword in background_keywords)
         has_ai = any(keyword in prompt for keyword in ai_keywords)
 
         return has_background and has_ai
@@ -127,9 +131,14 @@ class MockProvider(LLMProvider):
     def _is_privacy_technical_content(self, prompt: str) -> bool:
         """Check if prompt is for privacy/technical content."""
         privacy_keywords = ["datenschutz", "privacy", "sicherheit", "security"]
-        technical_keywords = ["system", "modell", "implementierung", "plattform"]
+        technical_keywords = [
+            "system",
+            "modell",
+            "implementierung",
+            "plattform"]
 
         has_privacy = any(keyword in prompt for keyword in privacy_keywords)
-        has_technical = any(keyword in prompt for keyword in technical_keywords)
+        has_technical = any(
+            keyword in prompt for keyword in technical_keywords)
 
         return has_privacy or has_technical

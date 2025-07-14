@@ -3,7 +3,6 @@ LLM provider factory for creating appropriate LLM instances.
 """
 
 import logging
-from typing import Optional
 
 from ..config import config
 from .base import LLMProvider

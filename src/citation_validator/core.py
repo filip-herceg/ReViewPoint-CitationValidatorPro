@@ -104,11 +104,12 @@ class CitationValidator:
                 div_text = self.html_processor.extract_text_from_div(div)
 
                 if not div_text.strip():
-                    logger.warning(f"Div {footnote_id} has no text content, skipping")
+                    logger.warning(
+                        f"Div {footnote_id} has no text content, skipping")
                     response_content = (
-                        self.prompt_template.create_empty_content_response(footnote_id)
-                    )
-                    self.html_processor.add_response_div(soup, div, response_content)
+                        self.prompt_template.create_empty_content_response(footnote_id))
+                    self.html_processor.add_response_div(
+                        soup, div, response_content)
                     continue
 
                 # Get corresponding citation metadata
@@ -116,18 +117,19 @@ class CitationValidator:
 
                 if not citation_metadata:
                     logger.warning(
-                        f"No citation metadata found for footnote {footnote_id}"
-                    )
+                        f"No citation metadata found for footnote {footnote_id}")
                     response_content = (
                         self.prompt_template.create_missing_citation_response(
                             footnote_id
                         )
                     )
-                    self.html_processor.add_response_div(soup, div, response_content)
+                    self.html_processor.add_response_div(
+                        soup, div, response_content)
                     continue
 
                 # Validate citation metadata
-                if not self.citation_processor.validate_footnote(citation_metadata):
+                if not self.citation_processor.validate_footnote(
+                        citation_metadata):
                     logger.warning(
                         f"Invalid citation metadata for footnote {footnote_id}"
                     )
@@ -139,7 +141,8 @@ class CitationValidator:
                 )
 
                 # Add response div
-                self.html_processor.add_response_div(soup, div, response_content)
+                self.html_processor.add_response_div(
+                    soup, div, response_content)
 
                 processed_count += 1
                 logger.info(
@@ -154,7 +157,8 @@ class CitationValidator:
                     f"Failed to process footnote {footnote_id} "
                     f"- {str(e)}"
                 )
-                self.html_processor.add_response_div(soup, div, response_content)
+                self.html_processor.add_response_div(
+                    soup, div, response_content)
 
         logger.info(f"Successfully processed {processed_count} divs")
         return soup
@@ -193,7 +197,8 @@ class CitationValidator:
             return response
         except Exception as e:
             logger.error(f"Error generating LLM response: {e}")
-            return f"❌ **LLM Error**: Failed to generate response - " f"{str(e)}"
+            return f"❌ **LLM Error**: Failed to generate response - " f"{
+                str(e)}"
 
     def get_validation_summary(self) -> Dict[str, Any]:
         """

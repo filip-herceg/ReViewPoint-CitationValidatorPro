@@ -47,8 +47,8 @@ class OpenAIProvider(LLMProvider):
             logger.info(f"OpenAI client initialized with model {self.model}")
         except ImportError:
             logger.error(
-                "OpenAI package not installed. " "Install with: pip install openai"
-            )
+                "OpenAI package not installed. "
+                "Install with: pip install openai")
             raise
         except Exception as e:
             logger.error(f"Failed to initialize OpenAI client: {e}")

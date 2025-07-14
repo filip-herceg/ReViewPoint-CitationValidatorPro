@@ -2,11 +2,9 @@
 Tests for Citation Validator core functionality.
 """
 
-import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 
 from citation_validator.core import CitationValidator
-from citation_validator.config import config
 
 
 class TestCitationValidator:

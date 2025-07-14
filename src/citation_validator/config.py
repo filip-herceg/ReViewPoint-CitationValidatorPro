@@ -132,7 +132,9 @@ class Config:
             Path(self.output_dir).mkdir(parents=True, exist_ok=True)
             logging.info(f"Output directory ready: {self.output_dir}")
         except Exception as e:
-            logging.error(f"Cannot create output directory {self.output_dir}: {e}")
+            logging.error(
+                f"Cannot create output directory {
+                    self.output_dir}: {e}")
             return False
 
         return True

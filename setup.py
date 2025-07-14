@@ -15,11 +15,13 @@ long_description = (
 requirements_path = Path(__file__).parent / "requirements.txt"
 if requirements_path.exists():
     with open(requirements_path) as f:
-        requirements = [
-            line.strip() for line in f if line.strip() and not line.startswith("#")
-        ]
+        requirements = [line.strip() for line in f if line.strip()
+                        and not line.startswith("#")]
 else:
-    requirements = ["beautifulsoup4>=4.12.0", "openai>=1.0.0", "python-dotenv>=1.0.0"]
+    requirements = [
+        "beautifulsoup4>=4.12.0",
+        "openai>=1.0.0",
+        "python-dotenv>=1.0.0"]
 
 setup(
     name="citation-validator-pro",

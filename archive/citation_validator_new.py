@@ -48,7 +48,9 @@ except ImportError:
     import openai
 
 # Configuration from environment variables
-USE_SIMPLIFIED_MODE = os.getenv("USE_SIMPLIFIED_MODE", "true").lower() == "true"
+USE_SIMPLIFIED_MODE = os.getenv(
+    "USE_SIMPLIFIED_MODE",
+    "true").lower() == "true"
 USE_MOCK_LLM = os.getenv("USE_MOCK_LLM", "false").lower() == "true"
 LLM_PROVIDER = os.getenv("LLM_PROVIDER", "openai")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -98,7 +100,7 @@ class SourceContentSimulator:
         """Simulate extracted content from a source based on citation metadata."""
         # Classify the citation based on title and keywords
         title = citation.get("title", "").lower()
-        citation_text = citation.get("citation", "").lower()
+        citation.get("citation", "").lower()
 
         if any(
             keyword in title
@@ -125,9 +127,12 @@ class SourceContentSimulator:
 
         # Select content based on hash for consistency
         content_list = self.simulated_sources[source_category]
-        content_index = hash(citation.get("doi", citation.get("title", ""))) % len(
-            content_list
-        )
+        content_index = hash(
+            citation.get(
+                "doi",
+                citation.get(
+                    "title",
+                    ""))) % len(content_list)
 
         return content_list[content_index]
 
@@ -155,7 +160,9 @@ class CitationValidator:
         logger.info(f"Loading HTML content from {self.content_html_path}")
 
         if not self.content_html_path.exists():
-            raise FileNotFoundError(f"Content file not found: {self.content_html_path}")
+            raise FileNotFoundError(
+                f"Content file not found: {
+                    self.content_html_path}")
 
         with open(self.content_html_path, "r", encoding="utf-8") as f:
             content = f.read()
@@ -290,21 +297,24 @@ Keep your response professional, concise but thorough (aim for 150-300 words).""
             try:
                 footnote_id = int(div.get("id"))
             except (ValueError, TypeError):
-                logger.warning(f"Skipping div with non-numeric ID: {div.get('id')}")
+                logger.warning(
+                    f"Skipping div with non-numeric ID: {div.get('id')}")
                 continue
 
             # Extract text content
             div_text = self.extract_text_from_div(div)
 
             if not div_text.strip():
-                logger.warning(f"Div {footnote_id} has no text content, skipping")
+                logger.warning(
+                    f"Div {footnote_id} has no text content, skipping")
                 continue
 
             # Get corresponding citation metadata
             citation_metadata = footnotes.get(footnote_id)
 
             if not citation_metadata:
-                logger.warning(f"No citation metadata found for footnote {footnote_id}")
+                logger.warning(
+                    f"No citation metadata found for footnote {footnote_id}")
                 # Create a response div noting missing citation
                 response_div = soup.new_tag("div", **{"class": "response"})
                 response_div.string = f"⚠️ **Missing Citation**: No citation metadata found for footnote {footnote_id}."
@@ -319,7 +329,8 @@ Keep your response professional, concise but thorough (aim for 150-300 words).""
                 )
 
             # Create LLM prompt and get response
-            prompt = self.create_llm_prompt(div_text, citation_metadata, source_content)
+            prompt = self.create_llm_prompt(
+                div_text, citation_metadata, source_content)
             llm_response = self.get_llm_response(prompt)
 
             # Create response div and insert after the original div
@@ -372,8 +383,8 @@ Keep your response professional, concise but thorough (aim for 150-300 words).""
         logger.info("Starting Citation Validation Pipeline")
         logger.info(f"Mode: {'Simplified' if USE_SIMPLIFIED_MODE else 'Full'}")
         logger.info(
-            f"LLM: {'Mock' if USE_MOCK_LLM else f'{LLM_PROVIDER} ({OPENAI_MODEL})'}"
-        )
+            f"LLM: {
+                'Mock' if USE_MOCK_LLM else f'{LLM_PROVIDER} ({OPENAI_MODEL})'}")
 
         try:
             # Load input files

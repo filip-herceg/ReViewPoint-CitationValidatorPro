@@ -5,7 +5,6 @@ HTML processing utilities for citation validation.
 import re
 import logging
 from pathlib import Path
-from typing import Dict, Any
 
 logger = logging.getLogger(__name__)
 
@@ -13,8 +12,8 @@ try:
     from bs4 import BeautifulSoup
 except ImportError:
     logger.error(
-        "BeautifulSoup not installed. Install with: " "pip install beautifulsoup4"
-    )
+        "BeautifulSoup not installed. Install with: "
+        "pip install beautifulsoup4")
     raise
 
 
@@ -44,7 +43,9 @@ class HTMLProcessor:
         logger.info(f"Loading HTML content from {self.content_html_path}")
 
         if not self.content_html_path.exists():
-            raise FileNotFoundError(f"Content file not found: {self.content_html_path}")
+            raise FileNotFoundError(
+                f"Content file not found: {
+                    self.content_html_path}")
 
         with open(self.content_html_path, "r", encoding="utf-8") as f:
             content = f.read()
@@ -85,7 +86,8 @@ class HTMLProcessor:
                 footnote_id = int(div.get("id"))
                 valid_divs.append((div, footnote_id))
             except (ValueError, TypeError):
-                logger.warning(f"Skipping div with non-numeric ID: {div.get('id')}")
+                logger.warning(
+                    f"Skipping div with non-numeric ID: {div.get('id')}")
                 continue
 
         logger.info(f"Found {len(valid_divs)} divs with valid footnote IDs")
